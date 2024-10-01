@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwtypno32n54g"]
+
+[ext_resource type="Texture2D" uid="uid://vouuux5aqxva" path="res://02_toy_instrument_starter/assets/png/background.png" id="7_0wc8s"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(0.678355, 0.678355)
+texture = ExtResource("7_0wc8s")
