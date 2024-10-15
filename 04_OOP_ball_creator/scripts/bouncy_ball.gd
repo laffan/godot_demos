@@ -1,13 +1,11 @@
+class_name BouncyBall
 extends RigidBody2D
 
-class_name BouncyBall
+var bounciness: float = 0
 
-@export var bounciness: float = 0.5
-
-func init(pos: Vector2, bounce: float) -> BouncyBall:
+func init(pos: Vector2, bounce: float):
 	position = pos
 	bounciness = bounce
-	return self
 
 func _ready():
 	set_bounce(bounciness)
