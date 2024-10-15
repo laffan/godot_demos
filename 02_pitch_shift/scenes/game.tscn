@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxwry1xk6fshv"]
+
+[ext_resource type="Texture2D" uid="uid://be31lep0eevp" path="res://assets/png/background.png" id="1_2d7hw"]
+[ext_resource type="PackedScene" uid="uid://d36hcl51h8bqy" path="res://scenes/ball.tscn" id="2_l0whl"]
+[ext_resource type="PackedScene" uid="uid://5diicoa2mn3p" path="res://scenes/button.tscn" id="3_bax1a"]
+[ext_resource type="Texture2D" uid="uid://befsm7vlolpls" path="res://assets/png/buttons.png" id="3_qq6gl"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(400, 400)
+scale = Vector2(0.671667, 0.67)
+texture = ExtResource("1_2d7hw")
+
+[node name="Ball" parent="." instance=ExtResource("2_l0whl")]
+visible = false
+position = Vector2(398, 113)
+
+[node name="Button" parent="." instance=ExtResource("3_bax1a")]
+position = Vector2(212, 457)
+pitchAdjustment = 2.0
+
+[node name="ButtonSprite1" type="Sprite2D" parent="Button"]
+position = Vector2(2, 2)
+texture = ExtResource("3_qq6gl")
+region_enabled = true
+region_rect = Rect2(61, 220, 106, 121)
+
+[node name="Button2" parent="." instance=ExtResource("3_bax1a")]
+position = Vector2(383, 456)
+pitchAdjustment = 3.0
+
+[node name="ButtonSprite2" type="Sprite2D" parent="Button2"]
+position = Vector2(2, 2)
+texture = ExtResource("3_qq6gl")
+region_enabled = true
+region_rect = Rect2(367, 371, 130, 119)
+
+[node name="Button3" parent="." instance=ExtResource("3_bax1a")]
+position = Vector2(600, 456)
+pitchAdjustment = 4.0
+
+[node name="ButtonSprite3" type="Sprite2D" parent="Button3"]
+position = Vector2(2, 2)
+texture = ExtResource("3_qq6gl")
+region_enabled = true
+region_rect = Rect2(674, 383, 138, 134)
