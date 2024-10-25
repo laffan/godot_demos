@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvehxsw6y0wua"]
+
+[ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
+[ext_resource type="PackedScene" uid="uid://ctaebkyfu7ikr" path="res://scenes/wheel.tscn" id="3_7uqm4"]
+[ext_resource type="Texture2D" uid="uid://ds3eixs7lujgg" path="res://assets/png/grabber.png" id="4_nm8wf"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_41pio"]
+viewport_path = NodePath("WheelSubViewport")
+
+[sub_resource type="Environment" id="Environment_w8ce4"]
+ambient_light_source = 2
+ambient_light_color = Color(0.40642, 0.40642, 0.40642, 1)
+
+[sub_resource type="World3D" id="World3D_0flqt"]
+environment = SubResource("Environment_w8ce4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oamnl"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.904088, 0.415366, 0.549773, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_rqkg4"]
+HSlider/icons/grabber = ExtResource("4_nm8wf")
+HSlider/icons/grabber_disabled = ExtResource("4_nm8wf")
+HSlider/icons/grabber_highlight = ExtResource("4_nm8wf")
+HSlider/styles/slider = SubResource("StyleBoxFlat_oamnl")
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(400, 400)
+scale = Vector2(0.665833, 0.665833)
+texture = ExtResource("1_dxajr")
+
+[node name="WheelSprite" type="Sprite2D" parent="."]
+position = Vector2(402, 497)
+scale = Vector2(0.863281, 0.863281)
+texture = SubResource("ViewportTexture_41pio")
+region_rect = Rect2(124, 123, 265, 270)
+
+[node name="WheelSubViewport" parent="." instance=ExtResource("3_7uqm4")]
+own_world_3d = true
+world_3d = SubResource("World3D_0flqt")
+transparent_bg = true
+scaling_3d_mode = 1
+
+[node name="Slider" type="HSlider" parent="."]
+unique_name_in_owner = true
+offset_left = 228.0
+offset_top = 109.0
+offset_right = 597.0
+offset_bottom = 290.0
+theme = SubResource("Theme_rqkg4")
+min_value = -4.0
+max_value = 4.0
+step = 0.5

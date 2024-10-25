@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://buod7a6toas56"]
+
+[ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="1_5lb4h"]
+
+[node name="Reveal" type="Node2D"]
+
+[node name="Shapes" type="Sprite2D" parent="."]
+position = Vector2(504, 504)
+texture = ExtResource("1_5lb4h")

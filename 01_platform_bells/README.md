@@ -1,9 +1,4 @@
-# 02 Toy Instrument
+# 01 Platform Bells
 
-This is the finished toy instrument project. 
+A simple demonstration of how to use physics to trigger audio.
 
-You can find the starter project [here](./../../starters/02_toy_instrument_starter/)
-
-// Description of project
-
-// Resources, etc.

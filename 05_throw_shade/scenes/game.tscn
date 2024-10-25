@@ -1,0 +1,135 @@
+[gd_scene load_steps=15 format=3 uid="uid://dvehxsw6y0wua"]
+
+[ext_resource type="PackedScene" uid="uid://buod7a6toas56" path="res://scenes/reveal.tscn" id="1_aqsdb"]
+[ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_lu1w7"]
+[ext_resource type="Texture2D" uid="uid://b1xr2qu8dxusl" path="res://assets/png/mask.png" id="2_60vgg"]
+[ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="4_0yaf6"]
+[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_3vk7x"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_re4jy"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Shader" id="Shader_itfvr"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1jb1"]
+shader = SubResource("Shader_itfvr")
+
+[sub_resource type="Gradient" id="Gradient_6jkjv"]
+offsets = PackedFloat32Array(0, 0.377049)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bhlp4"]
+gradient = SubResource("Gradient_6jkjv")
+fill = 1
+fill_from = Vector2(0.5, 0.49359)
+fill_to = Vector2(0.997863, 0.00213675)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qsydb"]
+polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 90.0474, 172.767, 519.097, -25.407, 352.244, -175.308, 23.8361, -13.9738)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4ubuy"]
+polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 116.532, 224.852, 746.864, -60.9767, 520.421, -242.636, 17.215, -33.029)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1bs2"]
+shader = ExtResource("6_3vk7x")
+shader_parameter/depth = 0.1
+shader_parameter/line_thickness = 3
+shader_parameter/bulge_amount = 0.03
+shader_parameter/step_softness = 0.5
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_lu1w7")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(400, 400)
+scale = Vector2(0.665833, 0.665833)
+texture = ExtResource("1_dxajr")
+
+[node name="Mask" type="Sprite2D" parent="."]
+self_modulate = Color(0.337255, 1, 1, 1)
+clip_children = 2
+position = Vector2(416, 160)
+texture = ExtResource("2_60vgg")
+
+[node name="Reveal" parent="Mask" instance=ExtResource("1_aqsdb")]
+position = Vector2(-580, -381)
+
+[node name="Sprite2D" type="Sprite2D" parent="Mask"]
+position = Vector2(-48, -16)
+texture = SubResource("ViewportTexture_re4jy")
+region_enabled = true
+region_rect = Rect2(270, 314, 242, 198)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Mask2" type="Sprite2D" parent="SubViewport"]
+self_modulate = Color(1, 0.396078, 1, 1)
+clip_children = 2
+position = Vector2(416, 424)
+scale = Vector2(0.465608, 0.465608)
+texture = ExtResource("2_60vgg")
+
+[node name="inner-shape" type="Sprite2D" parent="SubViewport/Mask2"]
+position = Vector2(-103.091, -103.091)
+scale = Vector2(2.14773, 2.14773)
+texture = ExtResource("4_0yaf6")
+region_enabled = true
+region_rect = Rect2(378, 17, 297, 355)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+material = SubResource("ShaderMaterial_m1jb1")
+position = Vector2(209, 609)
+scale = Vector2(0.755158, 0.787186)
+color = Color(0.971447, 0.858195, 0.545226, 1)
+energy = 0.65
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_bhlp4")
+texture_scale = 22.05
+
+[node name="LightMasker" type="Sprite2D" parent="."]
+self_modulate = Color(0.409567, 0.681819, 0.731034, 1)
+position = Vector2(528, 560)
+scale = Vector2(0.755158, 0.787186)
+texture = ExtResource("2_60vgg")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="LightMasker"]
+show_behind_parent = true
+position = Vector2(-296.627, 8.89243)
+occluder = SubResource("OccluderPolygon2D_qsydb")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="LightMasker"]
+show_behind_parent = true
+position = Vector2(-538.96, -485.273)
+occluder = SubResource("OccluderPolygon2D_4ubuy")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
+visible = false
+material = SubResource("ShaderMaterial_h1bs2")
+clip_contents = true
+offset_right = 800.0
+offset_bottom = 800.0
+metadata/_edit_use_anchors_ = true
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.59
+blend_mode = 1
