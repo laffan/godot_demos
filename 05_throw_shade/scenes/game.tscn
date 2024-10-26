@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dvehxsw6y0wua"]
+[gd_scene load_steps=14 format=3 uid="uid://dvehxsw6y0wua"]
 
 [ext_resource type="PackedScene" uid="uid://buod7a6toas56" path="res://scenes/reveal.tscn" id="1_aqsdb"]
 [ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_lu1w7"]
 [ext_resource type="Texture2D" uid="uid://b1xr2qu8dxusl" path="res://assets/png/mask.png" id="2_60vgg"]
-[ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="4_0yaf6"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_3vk7x"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_re4jy"]
@@ -41,10 +40,10 @@ fill_from = Vector2(0.5, 0.49359)
 fill_to = Vector2(0.997863, 0.00213675)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qsydb"]
-polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 90.0474, 172.767, 519.097, -25.407, 352.244, -175.308, 23.8361, -13.9738)
+polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 64.8874, 156.253, 74.157, 168.956, 97.9931, 172.767, 117.856, 163.875, 519.097, -25.407, 558.824, -53.3546, 589.281, -68.5988, 572.066, -95.2761, 536.312, -88.9244, 534.988, -106.709, 548.23, -124.494, 515.124, -118.142, 536.312, -134.657, 521.745, -152.442, 493.937, -144.82, 500.558, -157.523, 482.019, -158.793, 488.64, -170.227, 455.534, -181.66, 436.995, -179.119, 403.889, -174.038, 374.756, -175.308, 152.286, -86.3837, 17.2153, -15.2442, 1.32455, 0, -1.32391, 13.9738)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4ubuy"]
-polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 116.532, 224.852, 746.864, -60.9767, 520.421, -242.636, 17.215, -33.029)
+polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 80.7778, 184.201, 96.6685, 203.256, 112.559, 212.148, 139.044, 205.796, 217.173, 174.038, 319.138, 125.765, 438.319, 62.2472, 572.066, 8.89259, 678.004, -30.4882, 678.004, -48.2731, 727, -72.4097, 749.512, -90.1945, 779.969, -99.087, 758.782, -134.657, 705.812, -128.305, 738.918, -148.631, 697.867, -143.549, 736.27, -157.523, 727, -170.226, 672.707, -161.334, 712.434, -196.904, 662.113, -210.878, 636.953, -207.067, 629.007, -218.5, 652.843, -233.744, 614.441, -235.014, 589.281, -241.366, 560.148, -237.555, 525.718, -226.122, 509.827, -235.014, 280.736, -153.712, 125.801, -90.1945, 17.215, -33.029, -2.64848, -6.35158, -2.64848, 10.1629)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h1bs2"]
 shader = ExtResource("6_3vk7x")
@@ -67,11 +66,11 @@ clip_children = 2
 position = Vector2(416, 160)
 texture = ExtResource("2_60vgg")
 
-[node name="Reveal" parent="Mask" instance=ExtResource("1_aqsdb")]
+[node name="RevealedItem" parent="Mask" instance=ExtResource("1_aqsdb")]
 position = Vector2(-580, -381)
 
-[node name="Sprite2D" type="Sprite2D" parent="Mask"]
-position = Vector2(-48, -16)
+[node name="SubMask" type="Sprite2D" parent="Mask"]
+position = Vector2(-68, -11)
 texture = SubResource("ViewportTexture_re4jy")
 region_enabled = true
 region_rect = Rect2(270, 314, 242, 198)
@@ -86,16 +85,13 @@ position = Vector2(416, 424)
 scale = Vector2(0.465608, 0.465608)
 texture = ExtResource("2_60vgg")
 
-[node name="inner-shape" type="Sprite2D" parent="SubViewport/Mask2"]
-position = Vector2(-103.091, -103.091)
+[node name="InnerRevealedItem" parent="SubViewport/Mask2" instance=ExtResource("1_aqsdb")]
+position = Vector2(-1245.68, -1385.29)
 scale = Vector2(2.14773, 2.14773)
-texture = ExtResource("4_0yaf6")
-region_enabled = true
-region_rect = Rect2(378, 17, 297, 355)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 material = SubResource("ShaderMaterial_m1jb1")
-position = Vector2(209, 609)
+position = Vector2(215, 610)
 scale = Vector2(0.755158, 0.787186)
 color = Color(0.971447, 0.858195, 0.545226, 1)
 energy = 0.65

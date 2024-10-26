@@ -37,7 +37,7 @@ scale = Vector2(0.665833, 0.665833)
 texture = ExtResource("1_dxajr")
 
 [node name="WheelSprite" type="Sprite2D" parent="."]
-position = Vector2(402, 497)
+position = Vector2(402, 469)
 scale = Vector2(0.863281, 0.863281)
 texture = SubResource("ViewportTexture_41pio")
 region_rect = Rect2(124, 123, 265, 270)
@@ -50,10 +50,10 @@ scaling_3d_mode = 1
 
 [node name="Slider" type="HSlider" parent="."]
 unique_name_in_owner = true
-offset_left = 228.0
-offset_top = 109.0
-offset_right = 597.0
-offset_bottom = 290.0
+offset_left = 214.0
+offset_top = 91.0
+offset_right = 583.0
+offset_bottom = 272.0
 theme = SubResource("Theme_rqkg4")
 min_value = -4.0
 max_value = 4.0
