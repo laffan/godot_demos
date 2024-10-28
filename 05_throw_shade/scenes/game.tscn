@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dvehxsw6y0wua"]
+[gd_scene load_steps=13 format=3 uid="uid://dvehxsw6y0wua"]
 
 [ext_resource type="PackedScene" uid="uid://buod7a6toas56" path="res://scenes/reveal.tscn" id="1_aqsdb"]
 [ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_lu1w7"]
 [ext_resource type="Texture2D" uid="uid://b1xr2qu8dxusl" path="res://assets/png/mask.png" id="2_60vgg"]
+[ext_resource type="Texture2D" uid="uid://blqj0y01wweb6" path="res://assets/png/pointlight_texture.png" id="5_rubl6"]
 [ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_3vk7x"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_re4jy"]
@@ -28,16 +29,6 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1jb1"]
 shader = SubResource("Shader_itfvr")
-
-[sub_resource type="Gradient" id="Gradient_6jkjv"]
-offsets = PackedFloat32Array(0, 0.377049)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bhlp4"]
-gradient = SubResource("Gradient_6jkjv")
-fill = 1
-fill_from = Vector2(0.5, 0.49359)
-fill_to = Vector2(0.997863, 0.00213675)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qsydb"]
 polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 64.8874, 156.253, 74.157, 168.956, 97.9931, 172.767, 117.856, 163.875, 519.097, -25.407, 558.824, -53.3546, 589.281, -68.5988, 572.066, -95.2761, 536.312, -88.9244, 534.988, -106.709, 548.23, -124.494, 515.124, -118.142, 536.312, -134.657, 521.745, -152.442, 493.937, -144.82, 500.558, -157.523, 482.019, -158.793, 488.64, -170.227, 455.534, -181.66, 436.995, -179.119, 403.889, -174.038, 374.756, -175.308, 152.286, -86.3837, 17.2153, -15.2442, 1.32455, 0, -1.32391, 13.9738)
@@ -72,6 +63,7 @@ position = Vector2(-580, -381)
 [node name="SubMask" type="Sprite2D" parent="Mask"]
 position = Vector2(-68, -11)
 texture = SubResource("ViewportTexture_re4jy")
+flip_h = true
 region_enabled = true
 region_rect = Rect2(270, 314, 242, 198)
 
@@ -94,10 +86,10 @@ material = SubResource("ShaderMaterial_m1jb1")
 position = Vector2(215, 610)
 scale = Vector2(0.755158, 0.787186)
 color = Color(0.971447, 0.858195, 0.545226, 1)
-energy = 0.65
+energy = 0.5
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_bhlp4")
-texture_scale = 22.05
+texture = ExtResource("5_rubl6")
+texture_scale = 2.0
 
 [node name="LightMasker" type="Sprite2D" parent="."]
 self_modulate = Color(0.409567, 0.681819, 0.731034, 1)

@@ -1,33 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://dvehxsw6y0wua"]
 
 [ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
-[ext_resource type="PackedScene" uid="uid://ctaebkyfu7ikr" path="res://scenes/wheel.tscn" id="3_7uqm4"]
-[ext_resource type="Texture2D" uid="uid://ds3eixs7lujgg" path="res://assets/png/grabber.png" id="4_nm8wf"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_41pio"]
-viewport_path = NodePath("WheelSubViewport")
-
-[sub_resource type="Environment" id="Environment_w8ce4"]
-ambient_light_source = 2
-ambient_light_color = Color(0.40642, 0.40642, 0.40642, 1)
-
-[sub_resource type="World3D" id="World3D_0flqt"]
-environment = SubResource("Environment_w8ce4")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oamnl"]
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.904088, 0.415366, 0.549773, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="Theme" id="Theme_rqkg4"]
-HSlider/icons/grabber = ExtResource("4_nm8wf")
-HSlider/icons/grabber_disabled = ExtResource("4_nm8wf")
-HSlider/icons/grabber_highlight = ExtResource("4_nm8wf")
-HSlider/styles/slider = SubResource("StyleBoxFlat_oamnl")
+[ext_resource type="PackedScene" uid="uid://cg7x13ulkxfiu" path="res://scenes/wheel_controller.tscn" id="2_v6uqh"]
+[ext_resource type="PackedScene" uid="uid://crikllwsq04y4" path="res://assets/blend/wheel.blend" id="3_dfccm"]
+[ext_resource type="AudioStream" uid="uid://dj6j1hnfu4ekt" path="res://assets/wav/bubble-pop.wav" id="4_8cdjq"]
+[ext_resource type="PackedScene" uid="uid://dx3w7xg36ft52" path="res://assets/blend/wheel2.blend" id="4_pw6bn"]
+[ext_resource type="PackedScene" uid="uid://bjejd3lqm64u7" path="res://assets/blend/wheel3.blend" id="5_upcj5"]
+[ext_resource type="AudioStream" uid="uid://dmweefqy6nfk1" path="res://assets/wav/flat-tap.wav" id="6_ltnlt"]
+[ext_resource type="AudioStream" uid="uid://kpq0q8t5ep13" path="res://assets/wav/low-hit.wav" id="8_g485g"]
 
 [node name="Game" type="Node2D"]
 
@@ -36,25 +16,19 @@ position = Vector2(400, 400)
 scale = Vector2(0.665833, 0.665833)
 texture = ExtResource("1_dxajr")
 
-[node name="WheelSprite" type="Sprite2D" parent="."]
-position = Vector2(402, 469)
-scale = Vector2(0.863281, 0.863281)
-texture = SubResource("ViewportTexture_41pio")
-region_rect = Rect2(124, 123, 265, 270)
+[node name="Wheels" type="Node" parent="."]
 
-[node name="WheelSubViewport" parent="." instance=ExtResource("3_7uqm4")]
-own_world_3d = true
-world_3d = SubResource("World3D_0flqt")
-transparent_bg = true
-scaling_3d_mode = 1
+[node name="WheelController" parent="Wheels" instance=ExtResource("2_v6uqh")]
+position = Vector2(39, 70)
+wheel_model = ExtResource("3_dfccm")
+ball_sound = ExtResource("4_8cdjq")
 
-[node name="Slider" type="HSlider" parent="."]
-unique_name_in_owner = true
-offset_left = 214.0
-offset_top = 91.0
-offset_right = 583.0
-offset_bottom = 272.0
-theme = SubResource("Theme_rqkg4")
-min_value = -4.0
-max_value = 4.0
-step = 0.5
+[node name="WheelController2" parent="Wheels" instance=ExtResource("2_v6uqh")]
+position = Vector2(400, 70)
+wheel_model = ExtResource("4_pw6bn")
+ball_sound = ExtResource("8_g485g")
+
+[node name="WheelController3" parent="Wheels" instance=ExtResource("2_v6uqh")]
+position = Vector2(220, 376)
+wheel_model = ExtResource("5_upcj5")
+ball_sound = ExtResource("6_ltnlt")
