@@ -1,14 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvehxsw6y0wua"]
+[gd_scene load_steps=24 format=3 uid="uid://dvehxsw6y0wua"]
 
-[ext_resource type="PackedScene" uid="uid://buod7a6toas56" path="res://scenes/reveal.tscn" id="1_aqsdb"]
 [ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_lu1w7"]
-[ext_resource type="Texture2D" uid="uid://b1xr2qu8dxusl" path="res://assets/png/mask.png" id="2_60vgg"]
-[ext_resource type="Texture2D" uid="uid://blqj0y01wweb6" path="res://assets/png/pointlight_texture.png" id="5_rubl6"]
-[ext_resource type="Shader" path="res://shaders/CRT.gdshader" id="6_3vk7x"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_re4jy"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="Script" path="res://scripts/character.gd" id="5_m26hh"]
+[ext_resource type="Texture2D" uid="uid://blqj0y01wweb6" path="res://assets/png/pointlight_texture.png" id="6_nry32"]
+[ext_resource type="PackedScene" uid="uid://cxmb5fwkk70fc" path="res://scenes/occluder_row.tscn" id="6_up5o5"]
+[ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="7_ij0ap"]
+[ext_resource type="Script" path="res://scripts/lantern.gd" id="7_oocek"]
 
 [sub_resource type="Shader" id="Shader_itfvr"]
 code = "shader_type canvas_item;
@@ -30,94 +28,192 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1jb1"]
 shader = SubResource("Shader_itfvr")
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qsydb"]
-polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 64.8874, 156.253, 74.157, 168.956, 97.9931, 172.767, 117.856, 163.875, 519.097, -25.407, 558.824, -53.3546, 589.281, -68.5988, 572.066, -95.2761, 536.312, -88.9244, 534.988, -106.709, 548.23, -124.494, 515.124, -118.142, 536.312, -134.657, 521.745, -152.442, 493.937, -144.82, 500.558, -157.523, 482.019, -158.793, 488.64, -170.227, 455.534, -181.66, 436.995, -179.119, 403.889, -174.038, 374.756, -175.308, 152.286, -86.3837, 17.2153, -15.2442, 1.32455, 0, -1.32391, 13.9738)
+[sub_resource type="CircleShape2D" id="CircleShape2D_hd867"]
+radius = 53.0848
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4ubuy"]
-polygon = PackedVector2Array(0, 29.218, 55.6175, 138.468, 80.7778, 184.201, 96.6685, 203.256, 112.559, 212.148, 139.044, 205.796, 217.173, 174.038, 319.138, 125.765, 438.319, 62.2472, 572.066, 8.89259, 678.004, -30.4882, 678.004, -48.2731, 727, -72.4097, 749.512, -90.1945, 779.969, -99.087, 758.782, -134.657, 705.812, -128.305, 738.918, -148.631, 697.867, -143.549, 736.27, -157.523, 727, -170.226, 672.707, -161.334, 712.434, -196.904, 662.113, -210.878, 636.953, -207.067, 629.007, -218.5, 652.843, -233.744, 614.441, -235.014, 589.281, -241.366, 560.148, -237.555, 525.718, -226.122, 509.827, -235.014, 280.736, -153.712, 125.801, -90.1945, 17.215, -33.029, -2.64848, -6.35158, -2.64848, 10.1629)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t8b6b"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1bs2"]
-shader = ExtResource("6_3vk7x")
-shader_parameter/depth = 0.1
-shader_parameter/line_thickness = 3
-shader_parameter/bulge_amount = 0.03
-shader_parameter/step_softness = 0.5
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_idciw"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_c46ve"]
+constant = -0.003
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_u6xbo"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_gcaw3"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_im8wr"]
+parameter_name = "Texture2DParameter"
+texture_source = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_radaj"]
+noise_type = 0
+frequency = 0.0032
+offset = Vector3(0, 0, -315.79)
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dylop"]
+width = 800
+noise = SubResource("FastNoiseLite_radaj")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ehqho"]
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_dylop")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_i0wgv"]
+
+[sub_resource type="VisualShader" id="VisualShader_cyoop"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Texture2DParameter : hint_screen_texture;
+uniform sampler2D tex_frg_7 : source_color;
+
+
+
+void fragment() {
+// Input:4
+	vec2 n_out4p0 = SCREEN_UV;
+
+
+	vec4 n_out5p0;
+// Texture2D:5
+	n_out5p0 = texture(Texture2DParameter, n_out4p0);
+	float n_out5p1 = n_out5p0.r;
+
+
+// Texture2D:7
+	vec4 n_out7p0 = texture(tex_frg_7, UV);
+
+
+// FloatOp:9
+	float n_out9p0 = n_out5p1 + n_out7p0.x;
+
+
+// FloatConstant:11
+	float n_out11p0 = -0.003000;
+
+
+// MultiplyAdd:10
+	vec3 n_out10p0 = fma(vec3(n_out5p0.xyz), vec3(n_out9p0), vec3(n_out11p0));
+
+
+// Output:0
+	COLOR.rgb = n_out10p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(760, 540)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_u6xbo")
+nodes/fragment/4/position = Vector2(-1620, 100)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_gcaw3")
+nodes/fragment/5/position = Vector2(-660, 180)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTexture2DParameter_im8wr")
+nodes/fragment/6/position = Vector2(-1617, 315)
+nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_ehqho")
+nodes/fragment/7/position = Vector2(-861, 840)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_i0wgv")
+nodes/fragment/9/position = Vector2(-160, 780)
+nodes/fragment/10/node = SubResource("VisualShaderNodeMultiplyAdd_idciw")
+nodes/fragment/10/position = Vector2(360, 500)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatConstant_c46ve")
+nodes/fragment/11/position = Vector2(-80, 1180)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 0, 6, 0, 5, 2, 7, 0, 9, 1, 5, 0, 10, 0, 9, 0, 10, 1, 10, 0, 0, 0, 5, 1, 9, 0, 11, 0, 10, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l0u8s"]
+shader = SubResource("VisualShader_cyoop")
+
+[sub_resource type="GDScript" id="GDScript_wbp2l"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lu1w7")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Background1" type="Sprite2D" parent="Background"]
+z_as_relative = false
 position = Vector2(400, 400)
 scale = Vector2(0.665833, 0.665833)
 texture = ExtResource("1_dxajr")
 
-[node name="Mask" type="Sprite2D" parent="."]
-self_modulate = Color(0.337255, 1, 1, 1)
-clip_children = 2
-position = Vector2(416, 160)
-texture = ExtResource("2_60vgg")
+[node name="Background2" type="Sprite2D" parent="Background"]
+z_as_relative = false
+position = Vector2(1199, 400)
+scale = Vector2(0.665833, 0.665833)
+texture = ExtResource("1_dxajr")
 
-[node name="RevealedItem" parent="Mask" instance=ExtResource("1_aqsdb")]
-position = Vector2(-580, -381)
-
-[node name="SubMask" type="Sprite2D" parent="Mask"]
-position = Vector2(-68, -11)
-texture = SubResource("ViewportTexture_re4jy")
-flip_h = true
-region_enabled = true
-region_rect = Rect2(270, 314, 242, 198)
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-
-[node name="Mask2" type="Sprite2D" parent="SubViewport"]
-self_modulate = Color(1, 0.396078, 1, 1)
-clip_children = 2
-position = Vector2(416, 424)
-scale = Vector2(0.465608, 0.465608)
-texture = ExtResource("2_60vgg")
-
-[node name="InnerRevealedItem" parent="SubViewport/Mask2" instance=ExtResource("1_aqsdb")]
-position = Vector2(-1245.68, -1385.29)
-scale = Vector2(2.14773, 2.14773)
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-material = SubResource("ShaderMaterial_m1jb1")
-position = Vector2(215, 610)
-scale = Vector2(0.755158, 0.787186)
-color = Color(0.971447, 0.858195, 0.545226, 1)
-energy = 0.5
-shadow_enabled = true
-texture = ExtResource("5_rubl6")
-texture_scale = 2.0
-
-[node name="LightMasker" type="Sprite2D" parent="."]
-self_modulate = Color(0.409567, 0.681819, 0.731034, 1)
-position = Vector2(528, 560)
-scale = Vector2(0.755158, 0.787186)
-texture = ExtResource("2_60vgg")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="LightMasker"]
-show_behind_parent = true
-position = Vector2(-296.627, 8.89243)
-occluder = SubResource("OccluderPolygon2D_qsydb")
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="LightMasker"]
-show_behind_parent = true
-position = Vector2(-538.96, -485.273)
-occluder = SubResource("OccluderPolygon2D_4ubuy")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="CanvasModulate"]
-visible = false
-material = SubResource("ShaderMaterial_h1bs2")
-clip_contents = true
-offset_right = 800.0
-offset_bottom = 800.0
-metadata/_edit_use_anchors_ = true
+[node name="Background3" type="Sprite2D" parent="Background"]
+z_as_relative = false
+position = Vector2(1998, 400)
+scale = Vector2(0.665833, 0.665833)
+texture = ExtResource("1_dxajr")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.59
 blend_mode = 1
+
+[node name="Character" type="CharacterBody2D" parent="."]
+position = Vector2(488, 592)
+script = ExtResource("5_m26hh")
+
+[node name="Lantern" type="PointLight2D" parent="Character"]
+material = SubResource("ShaderMaterial_m1jb1")
+scale = Vector2(0.755158, 0.787186)
+color = Color(0.971447, 0.858195, 0.545226, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("6_nry32")
+texture_scale = 2.0
+script = ExtResource("7_oocek")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character"]
+position = Vector2(0, -55)
+shape = SubResource("CircleShape2D_hd867")
+
+[node name="Sprite2D" type="Sprite2D" parent="Character"]
+position = Vector2(0, -57)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_ij0ap")
+region_enabled = true
+region_rect = Rect2(111, 30, 171, 221)
+
+[node name="Camera2D" type="Camera2D" parent="Character"]
+limit_left = 0
+limit_top = 0
+limit_right = 2400
+limit_bottom = 800
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, -112)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(88, 736)
+shape = SubResource("WorldBoundaryShape2D_t8b6b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_l0u8s")
+offset_right = 800.0
+offset_bottom = 800.0
+script = SubResource("GDScript_wbp2l")
+
+[node name="Occluders" type="Node2D" parent="."]
+
+[node name="Occluder Row" parent="Occluders" instance=ExtResource("6_up5o5")]
+position = Vector2(35, 456)
+
+[node name="Occluder Row3" parent="Occluders" instance=ExtResource("6_up5o5")]
+position = Vector2(64, 416)
+
+[node name="Occluder Row2" parent="Occluders" instance=ExtResource("6_up5o5")]
+position = Vector2(24, 656)

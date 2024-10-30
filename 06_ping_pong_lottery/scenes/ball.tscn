@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dr8ch2dx6bwgv"]
 
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1_qxuf2"]
-[ext_resource type="AudioStream" path="res://assets/wav/bounce.wav" id="2_gig2e"]
+[ext_resource type="AudioStream" uid="uid://bls4fovcdd8g5" path="res://assets/wav/ping-pong-tap.wav" id="2_gig2e"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6xg4s"]
 friction = 0.0
