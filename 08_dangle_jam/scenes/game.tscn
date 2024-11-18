@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvehxsw6y0wua"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_60148"]
+[ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
+[ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="2_6l55w"]
+[ext_resource type="PackedScene" uid="uid://c1sayb2g5yr5q" path="res://scenes/rope.tscn" id="4_w6flq"]
+
+[sub_resource type="Curve2D" id="Curve2D_nr6sa"]
+_data = {
+"points": PackedVector2Array(-94, -143.5, 94, 143.5, -11, 504, -64.5, 10.5, 64.5, -10.5, 245, 708, -41.7928, 71.8236, 41.7928, -71.8236, 492, 527, 102.5, 105, -102.5, -105, 464, 275, 0, 0, 0, 0, 244, 187, 78.8544, -52.0062, -78.8544, 52.0062, 51, 241, 0, 0, 0, 0, -11, 504)
+}
+point_count = 7
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4u6c2"]
+radius = 37.5899
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_60148")
+
+[node name="Background1" type="Sprite2D" parent="."]
+z_as_relative = false
+position = Vector2(349.25, 349.25)
+scale = Vector2(0.58125, 0.58125)
+texture = ExtResource("1_dxajr")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(126, -81)
+curve = SubResource("Curve2D_nr6sa")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-11, 504)
+rotation = 0.990878
+rotates = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Path2D/PathFollow2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/StaticBody2D"]
+shape = SubResource("CircleShape2D_4u6c2")
+
+[node name="Shapes" type="Sprite2D" parent="Path2D/PathFollow2D/StaticBody2D/CollisionShape2D"]
+rotation = -1.0088
+scale = Vector2(0.278901, 0.278901)
+texture = ExtResource("2_6l55w")
+region_enabled = true
+region_rect = Rect2(56, 708, 226, 274)
+
+[node name="Rope" parent="." instance=ExtResource("4_w6flq")]
+position = Vector2(176, 189)
+
+[node name="Rope2" parent="." instance=ExtResource("4_w6flq")]
+position = Vector2(300, 246)
+
+[node name="Rope3" parent="." instance=ExtResource("4_w6flq")]
+position = Vector2(436, 192)
+
+[node name="Rope4" parent="." instance=ExtResource("4_w6flq")]
+position = Vector2(557, 269)

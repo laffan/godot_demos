@@ -1,3 +1,9 @@
 # 04 Bouncey Ball Maker
 
-A simple demonstration of instantiation and OOP in Godot.
+This demo contains introductory examples of the following: 
+
+## UI Sliders
+
+
+
+## OOP Instantiation (sort of)

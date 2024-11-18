@@ -1,0 +1,340 @@
+[gd_scene load_steps=15 format=3 uid="uid://bmbdimyxmwf5s"]
+
+[ext_resource type="Texture2D" uid="uid://ciud5twwt5c5b" path="res://assets/png/demo_lines.png" id="3_ipqdr"]
+[ext_resource type="Texture2D" uid="uid://bj7c8o6knx28u" path="res://assets/png/demo_shapes.png" id="3_u2o2t"]
+[ext_resource type="Texture2D" uid="uid://blqo3ntqmyrg5" path="res://assets/png/radial_masks/NE.png" id="5_wsjy2"]
+[ext_resource type="Texture2D" uid="uid://c2ljej527e34i" path="res://assets/png/radial_masks/NW.png" id="5_ytk0m"]
+[ext_resource type="Texture2D" uid="uid://ffrc3sj1gq6t" path="res://assets/png/radial_masks/SE.png" id="7_1xfn5"]
+[ext_resource type="Texture2D" uid="uid://jyiqw0yn2vj5" path="res://assets/png/radial_masks/SW.png" id="8_xj1yg"]
+
+[sub_resource type="GDScript" id="GDScript_shmpq"]
+script/source = "extends Node2D
+
+#@onready var camera: Camera2D = $Camera2D
+#var zoom_level = 1.0
+#
+#func set_zoom(value: float):
+	#zoom_level = value
+	#if camera:  # Check if camera is ready
+		#camera.zoom = Vector2(value, value)
+#
+#func _ready():
+	#camera.zoom = Vector2(zoom_level, zoom_level)
+"
+
+[sub_resource type="Animation" id="Animation_2ws18"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShapeContainer/Foreground:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_b5vj2"]
+resource_name = "rotate_foreground"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShapeContainer/Foreground:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pkvus"]
+_data = {
+"RESET": SubResource("Animation_2ws18"),
+"rotate_foreground": SubResource("Animation_b5vj2")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ylcsc"]
+viewport_path = NodePath("InnerRevealedItem")
+
+[sub_resource type="Animation" id="Animation_elupf"]
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InnerRevealedItem/Node2D/Nw:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InnerRevealedItem/Node2D/Ne:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InnerRevealedItem/Node2D/Se:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("InnerRevealedItem/Node2D/Sw:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_arc26"]
+resource_name = "NE_Rotation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InnerRevealedItem/Node2D/Ne:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 9.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InnerRevealedItem/Node2D/Nw:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InnerRevealedItem/Node2D/Se:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 10.0333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("InnerRevealedItem/Node2D/Sw:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ouyto"]
+_data = {
+"RESET": SubResource("Animation_elupf"),
+"Rotate": SubResource("Animation_arc26")
+}
+
+[node name="RevealedItem" type="Node2D"]
+script = SubResource("GDScript_shmpq")
+
+[node name="Foreground Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pkvus")
+}
+autoplay = "rotate_foreground"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 360)
+
+[node name="ShapeContainer" type="Node2D" parent="."]
+position = Vector2(-504, 0)
+
+[node name="Foreground" type="Node2D" parent="ShapeContainer"]
+visible = false
+position = Vector2(504, 0)
+
+[node name="DemoShapes" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(-312, 216)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(605, 639, 117, 293)
+
+[node name="DemoShapes3" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(8, 0)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(1005, 605, 101, 113)
+
+[node name="DemoShapes8" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(-72, -408)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(697, 17, 295, 555)
+
+[node name="DemoShapes10" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(-436.5, -208)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(354, 28, 279, 337)
+
+[node name="DemoShapes11" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(320, -80)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(566, 1086, 358, 343)
+
+[node name="DemoShapes12" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(56, 256)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(1030, 39, 505, 247)
+
+[node name="DemoShapes17" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(-104, 680)
+rotation = 1.5708
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(1044, 337, 526, 159)
+
+[node name="DemoShapes18" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(712, -264)
+rotation = 1.5708
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(61, 38, 226, 274)
+
+[node name="DemoShapes19" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(-512, 512)
+rotation = -1.5708
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(1354, 750, 164, 259)
+
+[node name="DemoShapes15" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(-624, 80)
+rotation = 1.5708
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(287, 622, 131, 325)
+
+[node name="DemoShapes16" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(656, 152)
+rotation = 1.5708
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(287, 622, 131, 325)
+
+[node name="DemoShapes13" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(283.5, -504)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(766, 622, 158, 400)
+
+[node name="DemoShapes14" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(480, 360)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(316, 1220, 205, 230)
+
+[node name="DemoLines" type="Sprite2D" parent="ShapeContainer/Foreground"]
+position = Vector2(6.10352e-05, 6.10352e-05)
+scale = Vector2(1.375, 1.375)
+texture = ExtResource("3_ipqdr")
+region_enabled = true
+region_rect = Rect2(154, 10, 128, 131)
+
+[node name="Wheel" type="Sprite2D" parent="ShapeContainer"]
+clip_children = 1
+position = Vector2(496, 0)
+texture = SubResource("ViewportTexture_ylcsc")
+
+[node name="DemoShapes" type="Sprite2D" parent="ShapeContainer/Wheel"]
+position = Vector2(400, -112)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(1030, 39, 505, 247)
+
+[node name="DemoShapes2" type="Sprite2D" parent="ShapeContainer/Wheel"]
+position = Vector2(-320, -216)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(566, 1086, 358, 343)
+
+[node name="DemoShapes3" type="Sprite2D" parent="ShapeContainer/Wheel"]
+position = Vector2(709, 264)
+texture = ExtResource("3_u2o2t")
+region_enabled = true
+region_rect = Rect2(354, 28, 279, 337)
+
+[node name="InnerRevealedItem" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1400, 1400)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="InnerRevealedItem"]
+position = Vector2(700, 700)
+
+[node name="Nw" type="Sprite2D" parent="InnerRevealedItem/Node2D"]
+texture = ExtResource("5_ytk0m")
+offset = Vector2(-250, -250)
+
+[node name="Ne" type="Sprite2D" parent="InnerRevealedItem/Node2D"]
+position = Vector2(-4, 0)
+texture = ExtResource("5_wsjy2")
+offset = Vector2(250, -250)
+
+[node name="Se" type="Sprite2D" parent="InnerRevealedItem/Node2D"]
+position = Vector2(-8, 0)
+texture = ExtResource("7_1xfn5")
+offset = Vector2(250, 250)
+
+[node name="Sw" type="Sprite2D" parent="InnerRevealedItem/Node2D"]
+position = Vector2(2, 0)
+texture = ExtResource("8_xj1yg")
+offset = Vector2(-250, 250)
+
+[node name="WheelAnimation" type="AnimationPlayer" parent="InnerRevealedItem/Node2D"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_ouyto")
+}
+autoplay = "Rotate"

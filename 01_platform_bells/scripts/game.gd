@@ -7,7 +7,7 @@ extends Node2D
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if ball_timer.is_stopped():
-			# Weird. For some reason event.position is offset
+			# Use get_global_mouse_position to get position of mouse.
 			spawn_ball(get_global_mouse_position())
 			ball_timer.start()
 

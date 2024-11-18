@@ -1,24 +1,22 @@
 [gd_scene load_steps=5 format=3 uid="uid://dvehxsw6y0wua"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_w53he"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_jkiar"]
+[ext_resource type="Texture2D" uid="uid://gh44j4brs22u" path="res://assets/background.png" id="2_6b6x8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1ta4y"]
 font_size = 19
 font_color = Color(0.65218, 0.65218, 0.65218, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_x8auq"]
-distance = -788.0
+distance = -785.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_w53he")
 
 [node name="Background" type="Sprite2D" parent="."]
-show_behind_parent = true
-position = Vector2(399.25, 398.25)
-scale = Vector2(799.5, 797.5)
-texture = SubResource("CanvasTexture_jkiar")
+position = Vector2(352, 352)
+scale = Vector2(0.586667, 0.586667)
+texture = ExtResource("2_6b6x8")
 
 [node name="UI" type="Node" parent="."]
 
@@ -41,8 +39,18 @@ horizontal_alignment = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 10)
+[node name="Floor" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(352, -89)
+shape = SubResource("WorldBoundaryShape2D_x8auq")
+
+[node name="LeftWall" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(786, 598)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_x8auq")
+
+[node name="LeftWall2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-86, 604)
+rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_x8auq")
 
 [connection signal="value_changed" from="UI/BouncinessSlider" to="." method="_on_bounciness_slider_value_changed"]

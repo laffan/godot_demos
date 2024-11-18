@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="03_trickle_plink"
-run/main_scene="res://scenes/03_game.tscn"
+run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=800
+window/size/viewport_width=700
+window/size/viewport_height=700
 window/dpi/allow_hidpi=false
 window/per_pixel_transparency/allowed=true

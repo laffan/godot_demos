@@ -1,0 +1,181 @@
+[gd_resource type="VisualShader" load_steps=20 format=3 uid="uid://dceda1iyfvhdk"]
+
+[sub_resource type="VisualShaderNodeMultiplyAdd" id="VisualShaderNodeMultiplyAdd_idciw"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_c46ve"]
+constant = -0.003
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_llep5"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_qba7y"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_k3p8r"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_i1x0s"]
+parameter_name = "z_offset"
+default_value_enabled = true
+default_value = 0.8
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_wnxmo"]
+parameter_name = "x_offset"
+default_value_enabled = true
+default_value = 0.5
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_6i7yn"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_bqle2"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dakvl"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_31s13"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_u6xbo"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_gcaw3"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_im8wr"]
+parameter_name = "Texture2DParameter"
+texture_source = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_radaj"]
+noise_type = 0
+frequency = 0.0032
+offset = Vector3(0, -26.43, -96.48)
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="GDScript" id="GDScript_imhhy"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dylop"]
+noise = SubResource("FastNoiseLite_radaj")
+script = SubResource("GDScript_imhhy")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ehqho"]
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_dylop")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_i0wgv"]
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Texture2DParameter : hint_screen_texture;
+uniform float z_offset = 0.80000001192093;
+uniform float x_offset = 0.5;
+uniform sampler2D tex_frg_7 : source_color;
+
+
+
+void fragment() {
+// Input:4
+	vec2 n_out4p0 = SCREEN_UV;
+
+
+	vec4 n_out5p0;
+// Texture2D:5
+	n_out5p0 = texture(Texture2DParameter, n_out4p0);
+	float n_out5p1 = n_out5p0.r;
+
+
+// Input:13
+	vec2 n_out13p0 = SCREEN_UV;
+
+
+// FloatParameter:16
+	float n_out16p0 = z_offset;
+
+
+// Input:20
+	float n_out20p0 = TIME;
+
+
+// VectorCompose:21
+	vec2 n_out21p0 = vec2(n_out16p0, n_out20p0);
+
+
+// FloatParameter:17
+	float n_out17p0 = x_offset;
+
+
+// VectorCompose:19
+	vec2 n_out19p0 = vec2(n_out20p0, n_out17p0);
+
+
+// VectorCompose:18
+	vec2 n_out18p0 = vec2(n_out21p0.x, n_out19p0.x);
+
+
+// VectorOp:14
+	vec3 n_out14p0 = vec3(n_out13p0, 0.0) + vec3(n_out18p0, 0.0);
+
+
+// Texture2D:7
+	vec4 n_out7p0 = texture(tex_frg_7, vec2(n_out14p0.xy));
+
+
+// FloatOp:9
+	float n_out9p0 = n_out5p1 + n_out7p0.x;
+
+
+// FloatConstant:11
+	float n_out11p0 = -0.003000;
+
+
+// MultiplyAdd:10
+	vec3 n_out10p0 = fma(vec3(n_out5p0.xyz), vec3(n_out9p0), vec3(n_out11p0));
+
+
+// Output:0
+	COLOR.rgb = n_out10p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(940, 580)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_u6xbo")
+nodes/fragment/4/position = Vector2(-1620, 100)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_gcaw3")
+nodes/fragment/5/position = Vector2(-660, 180)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTexture2DParameter_im8wr")
+nodes/fragment/6/position = Vector2(-1620, 320)
+nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_ehqho")
+nodes/fragment/7/position = Vector2(-700, 880)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_i0wgv")
+nodes/fragment/9/position = Vector2(-160, 780)
+nodes/fragment/10/node = SubResource("VisualShaderNodeMultiplyAdd_idciw")
+nodes/fragment/10/position = Vector2(460, 580)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatConstant_c46ve")
+nodes/fragment/11/position = Vector2(-80, 1180)
+nodes/fragment/12/node = SubResource("VisualShaderNodeInput_llep5")
+nodes/fragment/12/position = Vector2(180, 240)
+nodes/fragment/13/node = SubResource("VisualShaderNodeInput_qba7y")
+nodes/fragment/13/position = Vector2(-2226, 1155)
+nodes/fragment/14/node = SubResource("VisualShaderNodeVectorOp_k3p8r")
+nodes/fragment/14/position = Vector2(-1300, 1260)
+nodes/fragment/16/node = SubResource("VisualShaderNodeFloatParameter_i1x0s")
+nodes/fragment/16/position = Vector2(-3675, 1617)
+nodes/fragment/17/node = SubResource("VisualShaderNodeFloatParameter_wnxmo")
+nodes/fragment/17/position = Vector2(-3675, 2478)
+nodes/fragment/18/node = SubResource("VisualShaderNodeVectorCompose_6i7yn")
+nodes/fragment/18/position = Vector2(-1785, 1806)
+nodes/fragment/19/node = SubResource("VisualShaderNodeVectorCompose_bqle2")
+nodes/fragment/19/position = Vector2(-2877, 2394)
+nodes/fragment/20/node = SubResource("VisualShaderNodeInput_dakvl")
+nodes/fragment/20/position = Vector2(-3738, 2205)
+nodes/fragment/21/node = SubResource("VisualShaderNodeVectorCompose_31s13")
+nodes/fragment/21/position = Vector2(-2877, 1995)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 0, 6, 0, 5, 2, 7, 0, 9, 1, 5, 0, 10, 0, 9, 0, 10, 1, 10, 0, 0, 0, 5, 1, 9, 0, 11, 0, 10, 2, 13, 0, 14, 0, 18, 0, 14, 1, 14, 0, 7, 0, 20, 0, 19, 0, 17, 0, 19, 1, 16, 0, 21, 0, 19, 0, 18, 1, 21, 0, 18, 0, 20, 0, 21, 1)

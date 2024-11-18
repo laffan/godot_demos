@@ -1,10 +1,9 @@
 extends RigidBody2D
 
-func _ready() -> void:
-	contact_monitor = true  # Enable contact monitoring
-	max_contacts_reported = 1 
 
 func _on_body_entered(body: Node) -> void:
 	print("Ouch!")
-	if body.has_method("play_audio"):
-		body.play_audio()
+	# Check to make sure there's a method called "ball_hit" 
+	# on the body that has been hit (ie. not another ball)
+	if body.has_method("ball_hit"):
+		body.ball_hit()

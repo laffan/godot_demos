@@ -29,10 +29,10 @@ func _on_body_entered(body):
 		# Get the collision point
 		var collision_point = collision_shape.global_position
 		
-		# Figure out which tile is at that point
-		# to_local converts the point to be local to the TileMapLayer,
+		# Figure out which tile is at that point.
+		# to_local() converts the point to be local to the TileMapLayer,
 		#   (important if the layer has been moved or resized.)
-		# local_to_map then finds the tile at that position
+		# local_to_map() then finds the tile at that position
 		# (Thanks to Claude for this one.)
 		var tile_pos = body.local_to_map(body.to_local(collision_point))
 		
@@ -49,7 +49,8 @@ func play_sound(stream: AudioStream):
 	audio_players[current_player].stream = stream
 	audio_players[current_player].play()
 	
-	# Now jump to the next player in line. (Modulo loops it, so 
-	# you're always within the bounds of the array.)
+	# Now jump to the next player in line. 
+  #Modulo loops it, so you're always within the bounds of the array.
+	# (Thanks to Claude for this one too.)
 	current_player = (current_player + 1) % max_audio_players
 	
