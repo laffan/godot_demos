@@ -1,8 +1,9 @@
 extends Node2D
 
-@onready var shutter: TextureButton = $Shutter
+@onready var shutter: TextureButton = $ShutterButton
 @onready var camera_2d: Camera2D = $Camera2D
 var captured_sprite: Sprite2D
+var Snapshot = preload("res://scenes/snapshot.tscn")
 
 func _ready():
 	# Create the sprite that will hold our captured image
@@ -18,26 +19,30 @@ func _on_shutter_pressed():
 	capture_and_process()
 
 func capture_and_process():
+	# Get a reference to the current viewport 
 	var viewport = get_viewport()
+
+	# Wait for the next frame to be processed so 
+	# the viewport is up to date. (Prevents capturing 
+	# incomplete frames.)
 	await get_tree().process_frame
-	
+
+	# Get the viewport's content as a texture 
 	var viewport_texture = viewport.get_texture()
-	var image = viewport_texture.get_image()
+
+	# Create a new instance of the Snapshot scene
+	var new_snapshot = Snapshot.instantiate()
+
+	# Assign the "snapshot_image" property an image from the viewport.
+	# (Passing in image rather than texture so it can be filtered.)
+	new_snapshot.snapshot_image = viewport_texture.get_image()
+
+	# Add the new snapshot to the scene
+	add_child(new_snapshot)
 	
-	# Process the image to be black and white with high contrast
-	for y in range(image.get_height()):
-		for x in range(image.get_width()):
-			var pixel = image.get_pixel(x, y)
-			var gray = pixel.r * 0.299 + pixel.g * 0.587 + pixel.b * 0.114
-			var threshold = 0.5
-			var contrast = 1.5
-			gray = (gray - threshold) * contrast + threshold
-			gray = clamp(gray, 0.0, 1.0)
-			image.set_pixel(x, y, Color(gray, gray, gray))
+	# Call the process_texture() function inside the instantiated 
+	# snapshot node.
+	new_snapshot.process_texture()
+
 	
-	var texture = ImageTexture.create_from_image(image)
 	
-	captured_sprite.texture = texture
-	captured_sprite.position = Vector2(350, 350)
-	captured_sprite.scale = Vector2(0.75, 0.75)
-	captured_sprite.visible = true

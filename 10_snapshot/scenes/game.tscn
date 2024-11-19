@@ -48,7 +48,7 @@ script = ExtResource("1_vre8n")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_as_relative = false
-position = Vector2(350, 350)
+position = Vector2(349, 350)
 scale = Vector2(0.57875, 0.580417)
 texture = ExtResource("1_dxajr")
 
@@ -96,7 +96,7 @@ autoplay = "rotate_face"
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(350, 350)
 
-[node name="Shutter" type="TextureButton" parent="."]
+[node name="ShutterButton" type="TextureButton" parent="."]
 offset_left = 596.0
 offset_top = 597.0
 offset_right = 647.0
