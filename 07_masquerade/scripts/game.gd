@@ -1,17 +1,9 @@
-extends Node2D
+extends Node
 
-#@onready var camera_scene1: Node2D = $SubReveal/Mask2/RevealedItem
-#@onready var zoom_slider: HSlider = $CameraDistance
-#
-#func _ready():
-	## Set up slider properties
-	#zoom_slider.min_value = 0.1
-	#zoom_slider.max_value = 2.0
-	#zoom_slider.value = 1.0
-	#
-	## New Godot 4 signal connection syntax
-	#zoom_slider.value_changed.connect(_on_zoom_changed)
-#
-#func _on_zoom_changed(value: float):
-	## Only update camera_scene1's zoom
-	#camera_scene1.set_zoom(value)
+@onready var mouse_mask: Node2D = $SubViewportMouse/MouseMask
+
+func _process(delta) -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		mouse_mask.set_peek_position(get_viewport().get_mouse_position())
+	else: 
+		mouse_mask.hide_peek()

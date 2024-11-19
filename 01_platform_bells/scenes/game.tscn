@@ -17,19 +17,19 @@ ball = ExtResource("1_3r786")
 [node name="BallTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="platforms" type="Node" parent="."]
+[node name="Platforms" type="Node" parent="."]
 
-[node name="platform" parent="platforms" instance=ExtResource("4_evva4")]
+[node name="platform" parent="Platforms" instance=ExtResource("4_evva4")]
 position = Vector2(-174, -109)
 rotation = 0.360643
 soundName = ExtResource("5_7ga3v")
 
-[node name="platform2" parent="platforms" instance=ExtResource("4_evva4")]
+[node name="platform2" parent="Platforms" instance=ExtResource("4_evva4")]
 position = Vector2(216, 62)
 rotation = -0.51707
 soundName = ExtResource("6_t56sp")
 
-[node name="platform3" parent="platforms" instance=ExtResource("4_evva4")]
+[node name="platform3" parent="Platforms" instance=ExtResource("4_evva4")]
 position = Vector2(-139, 230)
 rotation = 0.505078
 soundName = ExtResource("7_fvt5y")
