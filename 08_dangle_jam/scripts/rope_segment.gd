@@ -4,13 +4,14 @@ extends RigidBody2D
 @onready var sprite_shape: Sprite2D = $SpriteShape
 @onready var flash_timer: Timer = $FlashTimer
 
-var pitch_options: Array = [0, 1, 1.5, 2]
+var pitch_options: Array = [ 1, 1.5, 2]
 
 func _ready() -> void:
 	# Connect timer signal to function
-	flash_timer.timeout.connect(_on_flash_timer_timeout)
+	if not flash_timer.timeout.is_connected(_on_flash_timer_timeout):
+		flash_timer.timeout.connect(_on_flash_timer_timeout)
 
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(_body: Node) -> void:
 	play_sound()
 	flash()
 

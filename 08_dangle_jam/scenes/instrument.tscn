@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5ehr5sv5di6b"]
+
+[ext_resource type="Texture2D" uid="uid://bij1e8nwrkep5" path="res://assets/png/sketch-star.png" id="1_axpc5"]
+
+[sub_resource type="GDScript" id="GDScript_uwpq3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c0d6g"]
+radius = 14.0
+
+[node name="Instrument" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+monitorable = false
+script = SubResource("GDScript_uwpq3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c0d6g")
+
+[node name="Sketch-star" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_axpc5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

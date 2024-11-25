@@ -1,57 +1,92 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvehxsw6y0wua"]
+[gd_scene load_steps=13 format=3 uid="uid://dvehxsw6y0wua"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_60148"]
 [ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
 [ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="2_6l55w"]
 [ext_resource type="PackedScene" uid="uid://c1sayb2g5yr5q" path="res://scenes/rope.tscn" id="4_w6flq"]
+[ext_resource type="Texture2D" uid="uid://dhglx6k62evpw" path="res://assets/png/infinite-loop.png" id="5_2d00b"]
+[ext_resource type="Texture2D" uid="uid://bij1e8nwrkep5" path="res://assets/png/sketch-star.png" id="7_r8miw"]
+[ext_resource type="Texture2D" uid="uid://opr3hao4obxd" path="res://assets/png/sketch-diamond.png" id="8_18m0i"]
+[ext_resource type="Script" path="res://scripts/instrument.gd" id="8_267jn"]
+[ext_resource type="AudioStream" uid="uid://dx3mehikyg8ky" path="res://assets/wav/timpani-b.wav" id="9_gre36"]
 
 [sub_resource type="Curve2D" id="Curve2D_nr6sa"]
 _data = {
-"points": PackedVector2Array(-94, -143.5, 94, 143.5, -11, 504, -64.5, 10.5, 64.5, -10.5, 245, 708, -41.7928, 71.8236, 41.7928, -71.8236, 492, 527, 102.5, 105, -102.5, -105, 464, 275, 0, 0, 0, 0, 244, 187, 78.8544, -52.0062, -78.8544, 52.0062, 51, 241, 0, 0, 0, 0, -11, 504)
+"points": PackedVector2Array(1.12876, -72.4545, -1.12876, 72.4545, -81, 538, -71.725, -3.54855, 71.725, 3.54855, 29, 663, -81.4816, -4.01387, 81.4816, 4.01387, 394, 415, -2.85826, -69.8661, 2.85826, 69.8661, 510, 538, 35.7235, 0.401387, -35.7235, -0.401387, 407, 664, 102.5, 105, -102.5, -105, 214, 543, 61.0109, 4.76837e-07, -61.0109, -4.76837e-07, 28, 417, -2.00694, -74.658, 2.00694, 74.658, -82, 538)
 }
-point_count = 7
+point_count = 8
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4u6c2"]
-radius = 37.5899
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bu82p"]
+radius = 28.8434
+height = 69.9887
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c0d6g"]
+radius = 14.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_60148")
 
 [node name="Background1" type="Sprite2D" parent="."]
 z_as_relative = false
-position = Vector2(349.25, 349.25)
+position = Vector2(352, 348)
 scale = Vector2(0.58125, 0.58125)
 texture = ExtResource("1_dxajr")
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(126, -81)
+position = Vector2(144, -32)
 curve = SubResource("Curve2D_nr6sa")
 
+[node name="Infinite-loop" type="Sprite2D" parent="Path2D"]
+position = Vector2(211, 538)
+scale = Vector2(0.696629, 0.696629)
+texture = ExtResource("5_2d00b")
+
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-11, 504)
+position = Vector2(-81, 538)
 rotation = 0.990878
 rotates = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Path2D/PathFollow2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/StaticBody2D"]
-shape = SubResource("CircleShape2D_4u6c2")
-
-[node name="Shapes" type="Sprite2D" parent="Path2D/PathFollow2D/StaticBody2D/CollisionShape2D"]
 rotation = -1.0088
-scale = Vector2(0.278901, 0.278901)
+shape = SubResource("CapsuleShape2D_bu82p")
+
+[node name="Shapes" type="Sprite2D" parent="Path2D/PathFollow2D/StaticBody2D"]
+position = Vector2(0.836517, 0.547943)
+rotation = -1.0088
+scale = Vector2(0.255209, 0.250118)
 texture = ExtResource("2_6l55w")
 region_enabled = true
 region_rect = Rect2(56, 708, 226, 274)
 
-[node name="Rope" parent="." instance=ExtResource("4_w6flq")]
-position = Vector2(176, 189)
-
 [node name="Rope2" parent="." instance=ExtResource("4_w6flq")]
-position = Vector2(300, 246)
+position = Vector2(163, 132)
 
 [node name="Rope3" parent="." instance=ExtResource("4_w6flq")]
-position = Vector2(436, 192)
+position = Vector2(350, 251)
 
 [node name="Rope4" parent="." instance=ExtResource("4_w6flq")]
-position = Vector2(557, 269)
+position = Vector2(536, 136)
+
+[node name="Sketch-diamond" type="Sprite2D" parent="."]
+position = Vector2(439, 78)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_18m0i")
+
+[node name="Instrument" type="CharacterBody2D" parent="."]
+position = Vector2(235, 606)
+script = ExtResource("8_267jn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Instrument"]
+shape = SubResource("CircleShape2D_c0d6g")
+
+[node name="Sketch-star" type="Sprite2D" parent="Instrument"]
+position = Vector2(1, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_r8miw")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="Instrument"]
+stream = ExtResource("9_gre36")
+
+[connection signal="input_event" from="Instrument" to="Instrument" method="_on_input_event"]
