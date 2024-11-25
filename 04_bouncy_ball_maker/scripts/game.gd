@@ -2,9 +2,11 @@ extends Node2D
 
 @onready var bounciness_slider = $UI/BouncinessSlider
 @onready var bounciness_label = $UI/BouncinessLabel
+@onready var shape_options: OptionButton = $UI/ShapeOptions
 
-var BouncyBall = preload("res://scenes/bouncy_ball.tscn")
 
+var Shape = preload("res://scenes/shape.tscn")
+	
 # Signal on slider change
 func _on_bounciness_slider_value_changed(value: float) -> void:
 	bounciness_label.text = "Bounciness: %.2f" % value
@@ -19,9 +21,9 @@ func _unhandled_input(event):
 
 func spawn_bouncy_toy(position):
 	# Create a new ball
-	var new_toy = BouncyBall.instantiate()
-	# Use init() to set the bounciness
-	new_toy.init(position, bounciness_slider.value)
-	# Add ball to scene
-	add_child(new_toy)
+	var new_shape = Shape.instantiate()
+	# Add shape to scene (so that _ready can be used)
+	add_child(new_shape)
+	# Use init() to apply settings
+	new_shape.init(position, bounciness_slider.value, shape_options.selected)
 	
