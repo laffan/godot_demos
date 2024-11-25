@@ -2,7 +2,6 @@
 
 This demo contains introductory examples of the following: 
 	
-
 ## Instantiation
 
 When the user clicks anywhere in the scene, the input is captured by [game.gd](scripts/game.gd) and a ball.tscn is spawned at that location via the `instantiate()` function.
