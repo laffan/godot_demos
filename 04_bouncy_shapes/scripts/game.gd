@@ -4,7 +4,6 @@ extends Node2D
 @onready var bounciness_label = $UI/BouncinessLabel
 @onready var shape_options: OptionButton = $UI/ShapeOptions
 
-
 var Shape = preload("res://scenes/shape.tscn")
 	
 # Signal on slider change
