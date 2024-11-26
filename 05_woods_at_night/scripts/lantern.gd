@@ -1,7 +1,7 @@
 extends PointLight2D
 
-@export var min_energy := 0.5
-@export var max_energy := 0.7
+@export var min_energy := 0.9
+@export var max_energy := 1.1
 @export var flicker_time := 0.075
 
 func _ready():
@@ -13,3 +13,4 @@ func _ready():
 
 func flicker():
 	energy = randf_range(min_energy, max_energy)
+"res://assets/png/background.png"

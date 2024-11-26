@@ -1,9 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://dvehxsw6y0wua"]
+[gd_scene load_steps=13 format=3 uid="uid://dvehxsw6y0wua"]
 
 [ext_resource type="Texture2D" uid="uid://bipysyfgfo1sc" path="res://assets/png/background.png" id="1_dxajr"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="5_m26hh"]
 [ext_resource type="Texture2D" uid="uid://blqj0y01wweb6" path="res://assets/png/pointlight_texture.png" id="6_nry32"]
-[ext_resource type="PackedScene" uid="uid://cxmb5fwkk70fc" path="res://scenes/occluder_row.tscn" id="6_up5o5"]
+[ext_resource type="PackedScene" uid="uid://cxmb5fwkk70fc" path="res://scenes/rocks.tscn" id="6_up5o5"]
 [ext_resource type="AudioStream" uid="uid://bjcuf4b1qg1vs" path="res://assets/wav/upbeat_looping.wav" id="7_6ooxk"]
 [ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="7_ij0ap"]
 [ext_resource type="Script" path="res://scripts/lantern.gd" id="7_oocek"]
@@ -29,11 +29,6 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1jb1"]
 shader = SubResource("Shader_itfvr")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hd867"]
-radius = 53.0848
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t8b6b"]
-
 [sub_resource type="Gradient" id="Gradient_tc1a1"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
@@ -42,20 +37,6 @@ gradient = SubResource("Gradient_tc1a1")
 fill = 1
 fill_from = Vector2(0.512821, 0.508547)
 fill_to = Vector2(0.831197, 0.848291)
-
-[sub_resource type="Animation" id="Animation_mrcvs"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_no646"]
-resource_name = "pink_light_path"
-length = 5.0
-loop_mode = 1
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_64d21"]
-_data = {
-"RESET": SubResource("Animation_mrcvs"),
-"pink_light_path": SubResource("Animation_no646")
-}
 
 [node name="Game" type="Node2D"]
 
@@ -80,11 +61,12 @@ scale = Vector2(0.665833, 0.665833)
 texture = ExtResource("1_dxajr")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.979634, 0.924212, 0.871883, 1)
 energy = 0.98
 blend_mode = 1
 
 [node name="Character" type="CharacterBody2D" parent="."]
-position = Vector2(488, 592)
+position = Vector2(258, 455)
 script = ExtResource("5_m26hh")
 
 [node name="Lantern" type="PointLight2D" parent="Character"]
@@ -96,10 +78,6 @@ shadow_enabled = true
 texture = ExtResource("6_nry32")
 texture_scale = 2.0
 script = ExtResource("7_oocek")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Character"]
-position = Vector2(0, -55)
-shape = SubResource("CircleShape2D_hd867")
 
 [node name="Sprite2D" type="Sprite2D" parent="Character"]
 position = Vector2(0, -57)
@@ -114,59 +92,62 @@ limit_top = 0
 limit_right = 2400
 limit_bottom = 800
 
-[node name="Occluders" type="Node2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Character"]
+polygon = PackedVector2Array(-37, -9, -40, -32, -40, -88, -29, -105, -2, -112, 26, -109, 38, -100, 42, -59, 40, -21, 31, -10, 7, -3, -20, -2)
 
-[node name="Occluder Row" parent="Occluders" instance=ExtResource("6_up5o5")]
-position = Vector2(35, 456)
+[node name="Rocks" type="Node" parent="."]
 
-[node name="Occluder Row3" parent="Occluders" instance=ExtResource("6_up5o5")]
-position = Vector2(64, 416)
+[node name="Rocks1" parent="Rocks" instance=ExtResource("6_up5o5")]
+position = Vector2(101, 207)
 
-[node name="Occluder Row2" parent="Occluders" instance=ExtResource("6_up5o5")]
-position = Vector2(24, 656)
+[node name="Rocks2" parent="Rocks" instance=ExtResource("6_up5o5")]
+position = Vector2(1140, 471)
+rotation = -3.14159
 
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(0, -112)
+[node name="Rocks3" parent="Rocks" instance=ExtResource("6_up5o5")]
+position = Vector2(2125, 253)
+rotation = 1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(88, 736)
-shape = SubResource("WorldBoundaryShape2D_t8b6b")
+[node name="Party" type="Node2D" parent="."]
 
-[node name="UpbeatNoise" type="AudioStreamPlayer2D" parent="."]
+[node name="UpbeatNoise" type="AudioStreamPlayer2D" parent="Party"]
 position = Vector2(1120, 537)
 stream = ExtResource("7_6ooxk")
 autoplay = true
 max_distance = 500.0
 max_polyphony = 2
 
-[node name="FearNoise" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(80, 568)
-stream = ExtResource("8_qln5m")
-autoplay = true
-max_distance = 1000.0
-max_polyphony = 2
-
-[node name="GreenLight" type="PointLight2D" parent="."]
+[node name="GreenLight" type="PointLight2D" parent="Party"]
 position = Vector2(1192, 488)
 scale = Vector2(2.5, 2.5)
 color = Color(0.312115, 0.817449, 0.680709, 1)
 texture = SubResource("GradientTexture2D_i6cxe")
 
-[node name="YellowLight" type="PointLight2D" parent="."]
+[node name="YellowLight" type="PointLight2D" parent="Party"]
 position = Vector2(976, 464)
 scale = Vector2(2.5, 2.5)
 color = Color(0.741407, 0.748438, 0.182936, 1)
 texture = SubResource("GradientTexture2D_i6cxe")
 
-[node name="PinkLight" type="PointLight2D" parent="."]
+[node name="PinkLight" type="PointLight2D" parent="Party"]
 position = Vector2(1056, 552)
 rotation = -0.124355
 scale = Vector2(2.5, 2.5)
 color = Color(1, 0.477818, 0.991843, 1)
 texture = SubResource("GradientTexture2D_i6cxe")
 
-[node name="LightAnimations" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_64d21")
-}
-autoplay = "pink_light_path"
+[node name="Scary Noises" type="Node" parent="."]
+
+[node name="FearNoise" type="AudioStreamPlayer2D" parent="Scary Noises"]
+position = Vector2(80, 568)
+stream = ExtResource("8_qln5m")
+autoplay = true
+max_distance = 1000.0
+max_polyphony = 2
+
+[node name="FearNoise2" type="AudioStreamPlayer2D" parent="Scary Noises"]
+position = Vector2(1963, 544)
+stream = ExtResource("8_qln5m")
+autoplay = true
+max_distance = 1000.0
+max_polyphony = 2
