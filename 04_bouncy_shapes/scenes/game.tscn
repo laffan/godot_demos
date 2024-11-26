@@ -28,6 +28,7 @@ offset_right = 163.0
 offset_bottom = 56.0
 max_value = 1.0
 step = 0.1
+value = 0.5
 
 [node name="BouncinessLabel" type="Label" parent="UI"]
 offset_left = 17.0

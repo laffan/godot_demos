@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1sayb2g5yr5q"]
+[gd_scene load_steps=5 format=3 uid="uid://c1sayb2g5yr5q"]
 
 [ext_resource type="Texture2D" uid="uid://235d3scel3dl" path="res://assets/png/shapes.png" id="1_od6tp"]
+[ext_resource type="Script" path="res://scripts/rope_base.gd" id="1_t0oa2"]
 [ext_resource type="PackedScene" uid="uid://uil7f531ekpd" path="res://scenes/rope_segment.tscn" id="2_0y3dr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5ih5"]
@@ -10,6 +11,8 @@ size = Vector2(36, 48)
 position = Vector2(262, 512)
 
 [node name="RopeBase" type="StaticBody2D" parent="."]
+input_pickable = true
+script = ExtResource("1_t0oa2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RopeBase"]
 shape = SubResource("RectangleShape2D_w5ih5")

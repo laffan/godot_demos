@@ -17,8 +17,9 @@ func process_texture() -> void:
 	# Get the viewport size (screen size)
 	var viewport_size = get_viewport_rect().size
 	var sprite_size = snapshot_texture.get_size() * snapshot_sprite.scale
-
-	position = viewport_size / 2 - sprite_size / 2
+	
+	position = (viewport_size / 2) - (sprite_size / 2)
+	rotate(randf_range(-0.1, 0.1))
 
 
 func add_image_filter(image) -> Image:

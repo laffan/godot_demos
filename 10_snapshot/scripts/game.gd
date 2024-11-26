@@ -36,7 +36,6 @@ func capture_and_process():
 	# Assign the "snapshot_image" property an image from the viewport.
 	# (Passing in image rather than texture so it can be filtered.)
 	new_snapshot.snapshot_image = viewport_texture.get_image()
-
 	# Add the new snapshot to the scene
 	add_child(new_snapshot)
 	
