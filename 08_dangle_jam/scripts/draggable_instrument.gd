@@ -21,13 +21,16 @@ func _ready():
 func _on_body_entered(body):
 	if body.name == "InstrumentTrigger":
 		audio_player.play()
-		# Add your collision handling logic here
+		
+		# Create the scale tween
+		var tween = create_tween()
+		tween.tween_property(instrument_sprite, "scale", Vector2(1.5, 1.5), 0.12)
+		tween.tween_property(instrument_sprite, "scale", Vector2(0.5, 0.5), 0.25)
 	
 func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			# Toggle dragging
-			print("click")
 			is_dragging = event.pressed
 			
 			# When starting drag, capture the offset

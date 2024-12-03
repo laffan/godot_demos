@@ -45,8 +45,7 @@ region_enabled = true
 region_rect = Rect2(269, 14, 216, 186)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Triangle"]
-build_mode = 1
-polygon = PackedVector2Array(0, -38, 45, 39, -45, 39)
+polygon = PackedVector2Array(0, -39, 45, 39, -45, 39)
 
 [node name="PopSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_pmlv2")

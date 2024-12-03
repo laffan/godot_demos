@@ -35,7 +35,8 @@ offset_left = 17.0
 offset_top = 10.0
 offset_right = 143.0
 offset_bottom = 37.0
-text = "Bounciness: 0"
+text = "Bounciness: 0.50
+"
 label_settings = SubResource("LabelSettings_1ta4y")
 horizontal_alignment = 1
 
@@ -52,18 +53,18 @@ popup/item_1/id = 1
 popup/item_2/text = "triangle"
 popup/item_2/id = 2
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Boundaries" type="StaticBody2D" parent="."]
 
-[node name="Floor" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="Floor" type="CollisionShape2D" parent="Boundaries"]
 position = Vector2(352, -89)
 shape = SubResource("WorldBoundaryShape2D_x8auq")
 
-[node name="LeftWall" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="LeftWall" type="CollisionShape2D" parent="Boundaries"]
 position = Vector2(786, 598)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_x8auq")
 
-[node name="LeftWall2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="LeftWall2" type="CollisionShape2D" parent="Boundaries"]
 position = Vector2(-86, 604)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_x8auq")

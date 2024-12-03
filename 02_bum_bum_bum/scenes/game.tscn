@@ -55,7 +55,7 @@ vertical_alignment = 1
 
 [node name="Button" parent="Buttons" instance=ExtResource("3_bax1a")]
 position = Vector2(331, 535)
-pitchAdjustment = 1.0
+pitchAdjustment = 0.8
 
 [node name="ButtonSprite1" type="Sprite2D" parent="Buttons/Button"]
 position = Vector2(2, 2)
@@ -65,7 +65,7 @@ region_rect = Rect2(61, 220, 106, 121)
 
 [node name="Button2" parent="Buttons" instance=ExtResource("3_bax1a")]
 position = Vector2(328, 351)
-pitchAdjustment = 3.0
+pitchAdjustment = 1.0
 triggerAction = "k"
 
 [node name="ButtonSprite2" type="Sprite2D" parent="Buttons/Button2"]
@@ -76,7 +76,7 @@ region_rect = Rect2(367, 371, 130, 119)
 
 [node name="Button3" parent="Buttons" instance=ExtResource("3_bax1a")]
 position = Vector2(331, 164)
-pitchAdjustment = 5.0
+pitchAdjustment = 3.0
 triggerAction = "l"
 
 [node name="ButtonSprite3" type="Sprite2D" parent="Buttons/Button3"]
